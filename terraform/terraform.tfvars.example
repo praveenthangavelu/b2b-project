@@ -1,0 +1,12 @@
+# MongoDB connection string from MongoDB Atlas
+mongodb_uri = "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/prospecto_db?appName=myAtlasClusterEDU"
+
+# JWT encryption key (choose a secure random string)
+jwt_secret  = "your-super-secret-production-key"
+
+# (Optional) AWS Region (defaults to us-east-1)
+# aws_region = "us-east-1"
+
+# (Optional) External API Keys
+anymail_api_key = "your-anymail-api-key"
+enrich_api_key  = "your-enrich-api-key"

@@ -1,0 +1,40 @@
+{
+  "family": "prospecto-production-backend",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prospecto-production-ecs-exec-role",
+  "taskRoleArn": "arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/prospecto-production-ecs-task-role",
+  "containerDefinitions": [
+    {
+      "name": "backend",
+      "image": "<YOUR_AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/prospecto-backend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3001,
+          "hostPort": 3001,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "3001" },
+        { "name": "MONGODB_URI", "value": "<YOUR_MONGODB_URI>" },
+        { "name": "JWT_SECRET", "value": "<YOUR_JWT_SECRET>" },
+        { "name": "ANYMAIL_API_KEY", "value": "" },
+        { "name": "ENRICH_API_KEY", "value": "" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/prospecto-production",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "backend"
+        }
+      }
+    }
+  ]
+}
