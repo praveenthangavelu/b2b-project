@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { API_BASE } from "../config";
+import { getInitials } from "../utils/format";
 
 /**
  * Prospecto — TopBar
@@ -163,16 +164,6 @@ export default function TopBar({
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
-
-  const getInitials = (name) => {
-    if (!name) return "?";
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
 
   const submit = (val) => {
     const q = (val ?? query).trim();
