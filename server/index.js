@@ -19,7 +19,17 @@ const creditsRoutes = require('./routes/credits');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://prospecto-production-alb-275793155.us-east-1.elb.amazonaws.com',
+];
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error('CORS: origin not allowed'));
+  }
+}));
 app.use(express.json());
 
 function sanitizeUser(user) {
