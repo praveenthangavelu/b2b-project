@@ -1,9 +1,6 @@
 # Stage 1: Build the React application
 FROM node:20-alpine AS build
 
-ARG VITE_API_BASE=http://localhost:3001
-ENV VITE_API_BASE=$VITE_API_BASE
-
 WORKDIR /app
 
 COPY package*.json ./
